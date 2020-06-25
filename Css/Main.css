@@ -1,0 +1,123 @@
+﻿* {
+    background-color: black;
+    color: white;
+}
+body {
+    background-color: black;
+    color: white;
+}
+a {
+    color: #FFF748;
+}
+.navbarOnBlack {
+    background-color: #3C1A5B;
+}
+.headerBrand {
+    background-color: black;
+    color:white;
+}
+.hideShowTitle {
+    cursor: ns-resize;
+    color: #FFF748; /* yellow #FFF748 */
+    border-left: solid 1px #3C1A5B; /* purple #3C1A5B */
+    border-bottom: solid 1px #3C1A5B;
+    padding-left: 5px;
+}
+.defaultTableHeader {
+    background-color: #1c1c1c;
+    padding: 2px 5px 2px 5px;
+    vertical-align: top;
+    align-content: center;
+    color:darkgray;
+}
+.defaultTableCell {
+    padding:2px 5px 2px 5px;
+    vertical-align:top;
+    align-content:center;
+}
+.postReplyLink {
+    font-size: 10px;
+    color:dimgray;
+}
+.PostFooter {
+    text-align:right;
+}
+.voteImage {
+    width:20px;
+    height:20px;
+}
+.jumbotron2 {
+    background-image: url('/images/Anonymous-banner.jpg');
+}
+.backgroundOpacity {
+    background: rgba(255, 255, 255, .5);
+    color:black;
+}
+.PostText {
+    font-size: 20px;
+    color: #3C1A5B;
+}
+.DivPostText {
+    bottom: -3px;
+    position: relative;
+    overflow-wrap: anywhere;
+    min-width: 400px;
+    background-color: #1C1C1C;
+    color: #3C1A5B;
+    padding: 5px;
+    border-radius: 25px;
+}
+.DivPostTextInner {
+    background-color: #1C1C1C;
+    color: #3C1A5B;
+}
+.PostMsgTable {
+    max-width:800px;
+}
+.PostMsg {
+    color: white;
+}
+.PostMsgTableTr {
+}
+.PostMsgTableTd {
+    background-color: #1C1C1C;
+    color: white;
+    padding: 6px 8px 6px 8px;
+    border-radius: 15px;
+    overflow-wrap: anywhere;
+}
+.PostTimeStamp {
+    color:dimgray;
+}
+.PostHeader {
+    background-color: gray;
+}
+.PrivateMsg {
+}
+.PrivateMsgSent {
+    
+}
+.PrivateMsgReceived {
+    color: white;
+}
+.footer {
+    background-color: darkgray;
+}
+.button {
+    background-color: dimgray;
+    color: #FFF748;
+    width: 160px;
+}
+.textbox {
+    background-color: dimgray;
+    color: #FFF748;
+}
+.splashBannerText {
+    font-size: 18px;
+    color: darkblue;
+    font-weight: bolder;
+    background-color: transparent;
+}
+.PostTextTable {
+    padding:5px 5px 5px 5px;
+}
