@@ -31,13 +31,20 @@ namespace Anonymous
                 rptrRecentPosts_load();
 
                 if (Security.IsLoggedIn())
-                { }
+                {
+                    if (!Security.IsEmailVerified)
+                    {
+                        tbxDescription.Enabled = false;
+                        tbxDescription.Text = "[Must have email verified to post]";
+                    }
+                }
                 else
                 {
                     //tbxPostTitle.Enabled = false;
                     //tbxPostTitle.Text = "[Must be logged in to post]";
                     tbxDescription.Enabled = false;
                     tbxDescription.Text = "[Must be logged in to post]";
+
                 }
             }
         }

@@ -135,7 +135,7 @@ namespace Anonymous
                 }
 
                 if (
-                    tbxCode.Text != string.Empty
+                    tbxCode.Text == string.Empty
                     || cbxSkipInvitedEmailAddress.Checked
                     || invitedFriendHasCorrectEmailAddress)
                 {
