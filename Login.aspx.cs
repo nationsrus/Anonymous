@@ -133,6 +133,19 @@ namespace Anonymous
 
         protected void btnSecureLoginOnClick(object sender, EventArgs e)
         {
+            if (Session["lastLoginAttemptTimestamp"] != null && Session["loginAttempts"] != null)
+            {
+                if (DateTime.TryParse(Session["lastLoginAttemptTimestamp"].ToString(), out DateTime lastLoginAttemptTimestamp))
+                {
+                    if (int.TryParse(Session["loginAttempts"].ToString(), out int loginAttempts))
+                    {
+                        if (lastLoginAttemptTimestamp < DateTime.Now.AddMinutes(-15) && loginAttempts > 1)
+                        {
+                            Session["loginAttempts"] = 0;
+                        }
+                    }
+                }
+            }
 
             if (Db.Common.DoesEmailAlreadyExistInDb(tbxEmail.Text.ToLower().Trim(), out byte[] encryptedEmail, out DataSet dataSet))
             {
@@ -202,11 +215,43 @@ namespace Anonymous
                 else
                 {
                     lblError.Text = "Incorrect email/password. Code: 2";
+
+
+
                 }
             }
             else
             {
                 lblError.Text = "Incorrect email/password. Code: 1";
+            }
+
+            if (Session["loginAttempts"] == null)
+            {
+                Session["loginAttempts"] = "1";
+                Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+            }
+            else
+            {
+                if (int.TryParse(Session["loginAttempts"].ToString(), out int intLoginAttempts))
+                {
+                    if (intLoginAttempts < 4)
+                    {
+                        intLoginAttempts++;
+                        Session["loginAttempts"] = intLoginAttempts.ToString();
+                        Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+                    }
+                    else
+                    {
+                        //Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+                        lblError.Text = "Too many attempts, try again in 15 minutes.";
+                    }
+                }
+                else
+                {
+                    //shouldn't reach here???
+                    Session["loginAttempts"] = "0";
+                }
+
             }
 
         }

@@ -43,11 +43,73 @@ namespace Anonymous.Classes
                     {
                         boolDbError = true;
                         strDbError = "Error executing command: " + ex.ToString();
+
+                        List<SqlParameter> _sqlParameters = new List<SqlParameter>();
+                        SqlParameter sqlParameter = new SqlParameter();
+                        sqlParameter.ParameterName = "@errorText";
+                        sqlParameter.Value = ex.ToString();
+                        _sqlParameters.Add(sqlParameter);
+
+                        if (sqlParameters == null)
+                        {
+                            sqlParameter = new SqlParameter();
+                            sqlParameter.ParameterName = "@parameters";
+                            sqlParameter.Value = DBNull.Value;
+                            _sqlParameters.Add(sqlParameter);
+                        }
+                        else
+                        {
+                            string strParameters = string.Empty;
+                            foreach (var s in sqlParameters)
+                            {
+                                strParameters += "name: " + s.ParameterName + " value: " + s.Value + Environment.NewLine;
+                            }
+                            sqlParameter = new SqlParameter();
+                            sqlParameter.ParameterName = "@parameters";
+                            sqlParameter.Value = strParameters;
+                            _sqlParameters.Add(sqlParameter);
+                        }
+
+
+                        LogDbError("INSERT INTO errorLog(errorText,parameters) VALUES(@errorText,@parameters)", out bool bError, out string sError, _sqlParameters);
                     }
                 }
             }
             return affectedRows;
         }
+        public static int LogDbError(string commandText, out bool boolDbError, out string strDbError, List<SqlParameter> sqlParameters = null, CommandType commandType = CommandType.Text)
+        {
+            boolDbError = false;
+            strDbError = string.Empty;
+            int affectedRows = 0;
+            using (SqlConnection connection = GetSqlConnection())
+            {
+                using (SqlCommand command = new SqlCommand(commandText, connection))
+                {
+                    command.CommandType = commandType;
+
+                    if (sqlParameters != null && sqlParameters.Count > 0)
+                    {
+                        foreach (SqlParameter sqlParameter in sqlParameters)
+                        {
+                            command.Parameters.Add(sqlParameter);
+                        }
+                    }
+
+                    try
+                    {
+                        affectedRows = command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        boolDbError = true;
+                        strDbError = "Error executing command: " + ex.ToString();
+                    }
+                }
+            }
+            return affectedRows;
+        }
+
 
         public static DataSet ExecuteQuery(string commandText, out bool boolDbError, out string strDbError, List<SqlParameter> sqlParameters = null, CommandType commandType = CommandType.Text)
         {
