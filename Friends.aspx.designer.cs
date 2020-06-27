@@ -42,60 +42,6 @@ namespace Anonymous
         protected global::System.Web.UI.WebControls.Label lblNoResults;
 
         /// <summary>
-        /// tbxFriendEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxFriendEmail;
-
-        /// <summary>
-        /// tbxNickname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxNickname;
-
-        /// <summary>
-        /// tbxInviteShareEmailAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxInviteShareEmailAddress;
-
-        /// <summary>
-        /// tbxCustomMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCustomMessage;
-
-        /// <summary>
-        /// btnSendInvite control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSendInvite;
-
-        /// <summary>
-        /// lblInviteError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInviteError;
-
-        /// <summary>
         /// rptrFriendshipRequests control.
         /// </summary>
         /// <remarks>

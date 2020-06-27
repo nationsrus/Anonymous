@@ -11,7 +11,7 @@ namespace Anonymous
 {
 
 
-    public partial class Nation
+    public partial class PostAdd
     {
 
         /// <summary>
@@ -24,30 +24,30 @@ namespace Anonymous
         protected global::System.Web.UI.WebControls.DropDownList ddlNation;
 
         /// <summary>
-        /// btnNationChange control.
+        /// tbxDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNationChange;
+        protected global::System.Web.UI.WebControls.TextBox tbxDescription;
 
         /// <summary>
-        /// rptrPosts control.
+        /// btnRecaptchaSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptrPosts;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnRecaptchaSubmit;
 
         /// <summary>
-        /// rptrRecentPosts control.
+        /// btnPost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptrRecentPosts;
+        protected global::System.Web.UI.WebControls.Button btnPost;
     }
 }

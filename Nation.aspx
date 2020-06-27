@@ -64,24 +64,10 @@
 
 
     <br />
-    <h1><span onclick="hideShow('divPostAdd');" class="hideShowTitle">Add Post</span></h1>
+    <h1><span class="hideShowTitle">Add Post</span></h1>
 
     <div id="divPostAdd">
-        <table>
-            <tr>
-                <td class="defaultTableHeader">
-                    Post Text:
-                </td>
-                <td class="defaultTableCell">
-                    <asp:TextBox ID="tbxDescription" CssClass="textbox" TextMode="MultiLine" Rows="8" Width="600px" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="defaultTableCell" style="text-align:center;">
-                    <asp:Button ID="btnPost" CssClass="button" OnClick="btnPostOnClick" Text="Post" runat="server" />
-                </td>
-            </tr>
-        </table>
+        <a href="PostAdd">Add Post...</a>
         
     </div>
 

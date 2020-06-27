@@ -11,6 +11,14 @@
             <table>
                 <tr>
                     <td class="defaultTableHeader">
+                        Email address:
+                    </td>
+                    <td class="defaultTableCell">
+                        <asp:Label ID="lblEmail" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="defaultTableHeader">
                         Verification Code:
                     </td>
                     <td class="defaultTableCell">

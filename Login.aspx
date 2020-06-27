@@ -1,5 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Anonymous.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+        function onSubmit(token) {
+            document.getElementById("ctl01").submit();
+            document.getElementById("<%= btnSecureLogin.ClientID %>").click();
+        }
+    </script>
 
     <ul>
         <li>This login is seperate application from https://nationsrus.com but made by the same developer</li> 
@@ -45,7 +51,14 @@
             <td class="defaultTableCell"><asp:TextBox CssClass="textbox" ID="tbxPswd" runat="server" TextMode="Password"></asp:TextBox></td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><asp:Button ID="btnSecureLogin" CssClass="button" OnClick="btnSecureLoginOnClick" runat="server" Text="Login" /></td>
+            <td colspan="2" class="defaultTableFooterSubmit">
+                <asp:Button ID="btnSecureLogin" CssClass="hidden" OnClick="btnSecureLoginOnClick" runat="server" Text="Login" />
+                <button class="g-recaptcha button" 
+                    data-sitekey="6Ldu6qkZAAAAAIPQ-aaOL62X4m_not9wmbSM_cUI" 
+                    data-callback='onSubmit' 
+                    data-action='submit' runat="server" id="btnRecaptchaSubmit" >Submit</button>
+
+            </td>
         </tr>
         <tr>
             <td colspan="2" align="center">

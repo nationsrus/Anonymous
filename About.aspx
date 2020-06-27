@@ -20,6 +20,6 @@
     </ul>
 
     <h2>GitHub</h2>
-    <p>This is an open sourced project and details can be found at <a href="https://github.com/nationsrus/Anonymous" target="_blank">https://github.com/nationsrus/Anonymous</a> (source code will not be available until beta or post beta)</p>
+    <p>This is an open sourced project and details can be found at <a href="https://github.com/nationsrus/Anonymous" target="_blank">https://github.com/nationsrus/Anonymous</a></p>
 
 </asp:Content>

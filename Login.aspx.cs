@@ -133,125 +133,133 @@ namespace Anonymous
 
         protected void btnSecureLoginOnClick(object sender, EventArgs e)
         {
-            if (Session["lastLoginAttemptTimestamp"] != null && Session["loginAttempts"] != null)
+            if (Security.isRecaptchaChallengeSuccesful())
             {
-                if (DateTime.TryParse(Session["lastLoginAttemptTimestamp"].ToString(), out DateTime lastLoginAttemptTimestamp))
+                if (Session["lastLoginAttemptTimestamp"] != null && Session["loginAttempts"] != null)
                 {
-                    if (int.TryParse(Session["loginAttempts"].ToString(), out int loginAttempts))
+                    if (DateTime.TryParse(Session["lastLoginAttemptTimestamp"].ToString(), out DateTime lastLoginAttemptTimestamp))
                     {
-                        if (lastLoginAttemptTimestamp < DateTime.Now.AddMinutes(-15) && loginAttempts > 1)
+                        if (int.TryParse(Session["loginAttempts"].ToString(), out int loginAttempts))
                         {
-                            Session["loginAttempts"] = 0;
+                            if (lastLoginAttemptTimestamp < DateTime.Now.AddMinutes(-15) && loginAttempts > 1)
+                            {
+                                Session["loginAttempts"] = 0;
+                            }
                         }
                     }
                 }
-            }
 
-            if (Db.Common.DoesEmailAlreadyExistInDb(tbxEmail.Text.ToLower().Trim(), out byte[] encryptedEmail, out DataSet dataSet))
-            {
-                if(BCrypt.Net.BCrypt.EnhancedVerify(tbxPswd.Text.Trim(), dataSet.Tables[0].Rows[0]["encryptedPassword"].ToString()))
+                if (Db.Common.DoesEmailAlreadyExistInDb(tbxEmail.Text.ToLower().Trim(), out byte[] encryptedEmail, out DataSet dataSet))
                 {
-                    Session["anonId"] = dataSet.Tables[0].Rows[0]["anonId"].ToString();
-
-                    List<SqlParameter> sqlParameters = new List<SqlParameter>();
-                    SqlParameter sqlParameter = new SqlParameter();
-                    sqlParameter.ParameterName = "@anonId";
-                    sqlParameter.Value = Session["anonId"].ToString();
-                    sqlParameters.Add(sqlParameter);
-                    dataSet = Db.Common.AnonByAnonId(out bool boolDbError, out string strDbError, sqlParameters);
-                    
-                    //Session["encryptedEmailAndPassword"] = Security.Hash(tbxEmail.Text + tbxPswd.Text);
-                    Session["hashedPassword"] = System.Text.Encoding.Default.GetString(Security.Hash(tbxPswd.Text, tbxEmail.Text.ToLower().Trim() + ConfigurationManager.AppSettings["AppSalt"]));
-                    Session["PrivateKey"] = Security.DecryptStringAES(dataSet.Tables[0].Rows[0]["encryptedPrivateKey"].ToString(), Session["hashedPassword"].ToString());
-                    Session["PublicKey"] = dataSet.Tables[0].Rows[0]["PublicKey"].ToString();
-                    Session["email"] = tbxEmail.Text.ToLower().Trim();
-
-                    //Get and update entryptedLastLoginDateTime
-                    if (dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"] != null && dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"].ToString() != string.Empty)
+                    if (BCrypt.Net.BCrypt.EnhancedVerify(tbxPswd.Text.Trim(), dataSet.Tables[0].Rows[0]["encryptedPassword"].ToString()))
                     {
-                        Session["LastLoginDateTime"] = Security.DecryptStringAES(dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"].ToString(), Session["hashedPassword"].ToString());
-                    }
-                    else
-                    {
-                        Session["LastLoginDateTime"] = DateTime.Now.ToString();
-                    }
+                        Session["anonId"] = dataSet.Tables[0].Rows[0]["anonId"].ToString();
+                        Session["loginAttempts"] = "0";
 
-                    sqlParameters = new List<SqlParameter>();
-                    sqlParameter = new SqlParameter();
-                    sqlParameter.ParameterName = "@anonId";
-                    sqlParameter.Value = Session["anonId"].ToString();
-                    sqlParameters.Add(sqlParameter);
+                        List<SqlParameter> sqlParameters = new List<SqlParameter>();
+                        SqlParameter sqlParameter = new SqlParameter();
+                        sqlParameter.ParameterName = "@anonId";
+                        sqlParameter.Value = Session["anonId"].ToString();
+                        sqlParameters.Add(sqlParameter);
+                        dataSet = Db.Common.AnonByAnonId(out bool boolDbError, out string strDbError, sqlParameters);
 
-                    sqlParameter = new SqlParameter();
-                    sqlParameter.ParameterName = "@encryptedLastLoginDateTime";
-                    sqlParameter.Value = Security.EncryptStringAES(DateTime.Now.ToString(), Session["hashedPassword"].ToString());
-                    sqlParameters.Add(sqlParameter);
+                        //Session["encryptedEmailAndPassword"] = Security.Hash(tbxEmail.Text + tbxPswd.Text);
+                        Session["hashedPassword"] = System.Text.Encoding.Default.GetString(Security.Hash(tbxPswd.Text, tbxEmail.Text.ToLower().Trim() + ConfigurationManager.AppSettings["AppSalt"]));
+                        Session["PrivateKey"] = Security.DecryptStringAES(dataSet.Tables[0].Rows[0]["encryptedPrivateKey"].ToString(), Session["hashedPassword"].ToString());
+                        Session["PublicKey"] = dataSet.Tables[0].Rows[0]["PublicKey"].ToString();
+                        Session["email"] = tbxEmail.Text.ToLower().Trim();
 
-                    Db.ExecuteNonQuery("UPDATE anon SET encryptedLastLoginDateTime=@encryptedLastLoginDateTime WHERE anonId=@anonId", out boolDbError, out strDbError, sqlParameters);
-
-                    if (Request.QueryString["goAfter"] != null)
-                    {
-                        if (Request.QueryString["code"] != null)
+                        //Get and update entryptedLastLoginDateTime
+                        if (dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"] != null && dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"].ToString() != string.Empty)
                         {
-                            Response.Redirect(Request.QueryString["goAfter"].ToString() + "?code=" + HttpUtility.UrlEncode(Request.QueryString["code"].ToString()));
+                            Session["LastLoginDateTime"] = Security.DecryptStringAES(dataSet.Tables[0].Rows[0]["encryptedLastLoginDateTime"].ToString(), Session["hashedPassword"].ToString());
+                        }
+                        else
+                        {
+                            Session["LastLoginDateTime"] = DateTime.Now.ToString();
+                        }
+
+                        sqlParameters = new List<SqlParameter>();
+                        sqlParameter = new SqlParameter();
+                        sqlParameter.ParameterName = "@anonId";
+                        sqlParameter.Value = Session["anonId"].ToString();
+                        sqlParameters.Add(sqlParameter);
+
+                        sqlParameter = new SqlParameter();
+                        sqlParameter.ParameterName = "@encryptedLastLoginDateTime";
+                        sqlParameter.Value = Security.EncryptStringAES(DateTime.Now.ToString(), Session["hashedPassword"].ToString());
+                        sqlParameters.Add(sqlParameter);
+
+                        Db.ExecuteNonQuery("UPDATE anon SET encryptedLastLoginDateTime=@encryptedLastLoginDateTime WHERE anonId=@anonId", out boolDbError, out strDbError, sqlParameters);
+
+                        if (Request.QueryString["goAfter"] != null)
+                        {
+                            if (Request.QueryString["code"] != null)
+                            {
+                                Response.Redirect(Request.QueryString["goAfter"].ToString() + "?code=" + HttpUtility.UrlEncode(Request.QueryString["code"].ToString()));
+                                Response.End();
+                            }
+                            else if (Request.QueryString["action"] != null && Request.QueryString["postId"] != null)
+                            {
+                                if (Request.QueryString["action"].ToString() == "reply") ;
+                                {
+                                    //"Login?goAfter=Post&action=reply&postId=" + Request.QueryString["postId"].ToString()
+                                    Response.Redirect("Post?action=reply&postid=" + Request.QueryString["postId"].ToString());
+                                }
+
+                            }
+                            Response.Redirect(Request.QueryString["goAfter"].ToString());
                             Response.End();
                         }
-                        else if (Request.QueryString["action"] != null&& Request.QueryString["postId"] != null)
-                        {
-                            if (Request.QueryString["action"].ToString() == "reply") ;
-                            {
-                                //"Login?goAfter=Post&action=reply&postId=" + Request.QueryString["postId"].ToString()
-                                Response.Redirect("Post?action=reply&postid=" + Request.QueryString["postId"].ToString());
-                            }
-                            
-                        }
-                        Response.Redirect(Request.QueryString["goAfter"].ToString());
+
+                        Response.Redirect("Nation");
                         Response.End();
-                    }
-
-                    Response.Redirect("Nation");
-                    Response.End();
-                }
-                else
-                {
-                    lblError.Text = "Incorrect email/password. Code: 2";
-
-
-
-                }
-            }
-            else
-            {
-                lblError.Text = "Incorrect email/password. Code: 1";
-            }
-
-            if (Session["loginAttempts"] == null)
-            {
-                Session["loginAttempts"] = "1";
-                Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
-            }
-            else
-            {
-                if (int.TryParse(Session["loginAttempts"].ToString(), out int intLoginAttempts))
-                {
-                    if (intLoginAttempts < 4)
-                    {
-                        intLoginAttempts++;
-                        Session["loginAttempts"] = intLoginAttempts.ToString();
-                        Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
                     }
                     else
                     {
-                        //Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
-                        lblError.Text = "Too many attempts, try again in 15 minutes.";
+                        lblError.Text = "Incorrect email/password. Code: 2";
+
+
+
                     }
                 }
                 else
                 {
-                    //shouldn't reach here???
-                    Session["loginAttempts"] = "0";
+                    lblError.Text = "Incorrect email/password. Code: 1";
                 }
 
+                if (Session["loginAttempts"] == null)
+                {
+                    Session["loginAttempts"] = "1";
+                    Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+                }
+                else
+                {
+                    if (int.TryParse(Session["loginAttempts"].ToString(), out int intLoginAttempts))
+                    {
+                        if (intLoginAttempts < 4)
+                        {
+                            intLoginAttempts++;
+                            Session["loginAttempts"] = intLoginAttempts.ToString();
+                            Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+                        }
+                        else
+                        {
+                            //Session["lastLoginAttemptTimestamp"] = DateTime.Now.ToString();
+                            lblError.Text = "Too many attempts, try again in 15 minutes.";
+                        }
+                    }
+                    else
+                    {
+                        //shouldn't reach here???
+                        Session["loginAttempts"] = "0";
+                    }
+
+                }
+            }
+            else
+            {
+                lblError.Text = "Recaptcha failure. Please try again. Or stop acting like a robot :p";
             }
 
         }

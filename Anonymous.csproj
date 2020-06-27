@@ -148,6 +148,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Friend.aspx" />
+    <Content Include="FriendInvite.aspx" />
     <Content Include="FriendMessages.aspx" />
     <Content Include="Friends.aspx" />
     <Content Include="Global.asax" />
@@ -159,6 +160,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="PostAdd.aspx" />
     <Content Include="Web.config" />
     <None Include="Properties\PublishProfiles\anonymous.nationsrus.com.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -282,6 +284,13 @@
     <Compile Include="Friend.aspx.designer.cs">
       <DependentUpon>Friend.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FriendInvite.aspx.cs">
+      <DependentUpon>FriendInvite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FriendInvite.aspx.designer.cs">
+      <DependentUpon>FriendInvite.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FriendMessages.aspx.cs">
       <DependentUpon>FriendMessages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +363,13 @@
     </Compile>
     <Compile Include="Post.aspx.designer.cs">
       <DependentUpon>Post.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostAdd.aspx.cs">
+      <DependentUpon>PostAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PostAdd.aspx.designer.cs">
+      <DependentUpon>PostAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

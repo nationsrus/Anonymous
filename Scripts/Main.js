@@ -32,3 +32,5 @@ function hideMinimalShow(id) {
         }
     }
 }
+
+

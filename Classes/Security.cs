@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Configuration;
+using System.Net;
 
 namespace Anonymous.Classes
 {
@@ -90,11 +91,16 @@ namespace Anonymous.Classes
             return true;
         }
 
-        public static void IsLoggedInOrKick()
+        public static void IsLoggedInOrKick(string goAfterUrl = "")
         {
             if (!IsLoggedIn())
             {
-                HttpContext.Current.Response.Redirect("Login");
+                string url = "Login";
+                if (goAfterUrl != string.Empty)
+                {
+                    url += "?goAfter=" + goAfterUrl;
+                }
+                HttpContext.Current.Response.Redirect(url);
                 HttpContext.Current.Response.End();
             }
         }
@@ -139,6 +145,30 @@ namespace Anonymous.Classes
             {
                 return Db.Common.IsEmailVerified;
             }
+        }
+
+        public static bool isRecaptchaChallengeSuccesful()
+        {
+            string requestUriString = "https://www.google.com/recaptcha/api/siteverify?secret=" + ConfigurationManager.AppSettings["RecaptchaSecret"].ToString() + "&response=" + HttpContext.Current.Request.Form["g-recaptcha-response"];
+
+            var req = (HttpWebRequest)WebRequest.Create(requestUriString);
+
+            using (var wResponse = req.GetResponse())
+            {
+
+                using (StreamReader readStream = new StreamReader(wResponse.GetResponseStream()))
+                {
+                    string responseFromServer = readStream.ReadToEnd();
+                    //Response.Write(" // responseFromServer: " + responseFromServer);
+                    if (!responseFromServer.Contains("\"success\": false"))
+                    {
+                        //Response.Write(" - success! - ");
+                        //recaptchaSuccess = true;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         //While an app specific salt is not the best practice for

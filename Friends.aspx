@@ -34,47 +34,7 @@
     <h1><span onclick="hideShow('divInviteToAnon');" class="hideShowTitle">Invite Friend To Anonymous.</span></h1>
 
     <div id="divInviteToAnon">
-        Disclaimer: Due to security and privacy of everyone's email address, no success or failure message will display upon successful and failure attempts. When this friend uses the invite to register, your anon-# will be shared with them. Invites will automatically expire after 60 days.
-        <table>
-            <tr>
-                <td class="defaultTableHeader">
-                    Friend's email address:
-                </td>
-                <td class="defaultTableCell">
-                    <asp:TextBox ID="tbxFriendEmail" CssClass="textbox" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="defaultTableHeader">
-                    Your Name/Nickname:
-                </td>
-                <td class="defaultTableCell">
-                    <asp:TextBox ID="tbxNickname" CssClass="textbox" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="defaultTableHeader">
-                    Your email address (optional):
-                </td>
-                <td class="defaultTableCell">
-                    <asp:TextBox ID="tbxInviteShareEmailAddress" CssClass="textbox" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="defaultTableHeader">
-                    Custom message:
-                </td>
-                <td class="defaultTableCell">
-                    <asp:TextBox ID="tbxCustomMessage" CssClass="textbox" TextMode="MultiLine" Rows="4" Width="400px" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <asp:Button ID="btnSendInvite" OnClick="btnSendInvite_Click" CssClass="button" Text="Send" runat="server" />
-                </td>
-            </tr>
-        </table>
-        <asp:Label ID="lblInviteError" runat="server" Visible="false"></asp:Label>
+        <a href="FriendInvite">Invite friend...</a>
     </div>
 
     <h1><span onclick="hideShow('divFriendshipRequests');" class="hideShowTitle">Friendship Requests</span></h1>

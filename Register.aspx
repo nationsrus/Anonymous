@@ -1,5 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Anonymous.Register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+        function onSubmit(token) {
+            document.getElementById("ctl01").submit();
+            document.getElementById("<%= btnRegister.ClientID %>").click();
+        }
+    </script>
+
     <asp:Panel ID="pnlRegistration" runat="server">
     <h1><span onclick="hideShow('divRegister');" class="hideShowTitle">Register</span></h1>
 
@@ -54,7 +61,11 @@
             </tr>
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btnRegister" OnClick="btnRegisterOnClick" runat="server" Text="Register" />
+                    <button class="g-recaptcha button" 
+                        data-sitekey="6Ldu6qkZAAAAAIPQ-aaOL62X4m_not9wmbSM_cUI" 
+                        data-callback='onSubmit' 
+                        data-action='submit' OnClick="btnRegisterOnClick" runat="server" id="btnRecaptchaSubmit" >Submit</button>
+                    <asp:Button ID="btnRegister" OnClick="btnRegisterOnClick" CssClass="hidden" runat="server" Text="Register" />
                     <asp:Label ID="lblRegistrationError" runat="server" Visible="false">Email already exists in our system. Go to <a href='login'>Login</a> by <a href='login'>clicking here.</a></asp:Label>
                 </td>
             </tr>

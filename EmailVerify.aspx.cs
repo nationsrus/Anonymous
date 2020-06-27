@@ -31,6 +31,8 @@ namespace Anonymous
                 {
                     verifyCode(Request.QueryString["code"].ToString());
                 }
+
+                lblEmail.Text = Session["email"].ToString();
             }
         }
 

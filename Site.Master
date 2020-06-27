@@ -16,6 +16,7 @@
     <link href="Css/Main.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="Scripts/Main.js"></script>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
 </head>
 <body>

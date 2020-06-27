@@ -70,8 +70,13 @@ namespace Anonymous.Classes
                             _sqlParameters.Add(sqlParameter);
                         }
 
+                        sqlParameter = new SqlParameter();
+                        sqlParameter.ParameterName = "@strSql";
+                        sqlParameter.Value = commandText;
+                        _sqlParameters.Add(sqlParameter); 
 
-                        LogDbError("INSERT INTO errorLog(errorText,parameters) VALUES(@errorText,@parameters)", out bool bError, out string sError, _sqlParameters);
+
+                        LogDbError("INSERT INTO errorLog(errorText,parameters,strSql) VALUES(@errorText,@parameters,@strSql)", out bool bError, out string sError, _sqlParameters);
                     }
                 }
             }

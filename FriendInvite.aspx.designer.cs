@@ -11,61 +11,70 @@ namespace Anonymous
 {
 
 
-    public partial class EmailVerify
+    public partial class FriendInvite
     {
 
         /// <summary>
-        /// lblSystemMsg control.
+        /// tbxFriendEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSystemMsg;
+        protected global::System.Web.UI.WebControls.TextBox tbxFriendEmail;
 
         /// <summary>
-        /// pnlVerify control.
+        /// tbxNickname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlVerify;
+        protected global::System.Web.UI.WebControls.TextBox tbxNickname;
 
         /// <summary>
-        /// lblEmail control.
+        /// tbxInviteShareEmailAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
+        protected global::System.Web.UI.WebControls.TextBox tbxInviteShareEmailAddress;
 
         /// <summary>
-        /// tbxCode control.
+        /// tbxCustomMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCode;
+        protected global::System.Web.UI.WebControls.TextBox tbxCustomMessage;
 
         /// <summary>
-        /// btnSubmit control.
+        /// btnRecaptchaSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnRecaptchaSubmit;
 
         /// <summary>
-        /// pnlVerified control.
+        /// btnSendInvite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlVerified;
+        protected global::System.Web.UI.WebControls.Button btnSendInvite;
+
+        /// <summary>
+        /// lblInviteError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInviteError;
     }
 }
